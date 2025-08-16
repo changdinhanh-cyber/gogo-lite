@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng ký GoGo Lite ⚡️💰</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    background: linear-gradient(135deg,#ffecd2,#fcb69f,#fbc2eb,#a6c1ee);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+#signup-form {
+    width:360px;
+    background: linear-gradient(145deg,#fff1f3,#ffe3ec);
+    border-radius:20px;
+    box-shadow:0 0 30px rgba(0,0,0,0.25);
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+}
+#signup-form h2 {
+    color:#ff6b6b;
+    margin-bottom:20px;
+    text-align:center;
+    font-size:24px;
+    background: linear-gradient(90deg,#ff6b6b,#f06595,#845ef7);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation: titleMove 3s infinite alternate;
+}
+@keyframes titleMove {
+    0%{transform: translateX(0px)}
+    100%{transform: translateX(10px)}
+}
+#signup-form input {
+    width:100%;
+    padding:12px;
+    margin-bottom:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:16px;
+    box-sizing:border-box;
+}
+button.action {
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ff6b6b;
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+button.action:hover {
+    background:#fa5252;
+}
+#signup-notice {
+    margin-top:12px;
+    font-size:12px;
+    color:#555;
+    text-align:center;
+}
+.notification {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:white;
+    padding:15px 25px;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    display:none;
+    animation:popUp 0.4s ease forwards;
+    text-align:center;
+    z-index:10;
+}
+@keyframes popUp {
+    0%{opacity:0; transform:translate(-50%,-60%) scale(0.8);}
+    100%{opacity:1; transform:translate(-50%,-50%) scale(1);}
+}
+.coin {
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:gold;
+    border-radius:50%;
+    top:-20px;
+    animation: fall linear forwards;
+}
+@keyframes fall {
+    to { transform: translateY(700px) rotate(360deg); opacity:0; }
+}
+</style>
+</head>
+<body>
+<div id="signup-form">
+  <h2>Đăng ký GoGo Lite</h2>
+  <input type="text" id="regUser" placeholder="Tên tài khoản" />
+  <input type="password" id="regPass" placeholder="Mật khẩu" />
+  <input type="text" id="regRef" placeholder="Mã giới thiệu (nếu có)" />
+  <input type="text" id="regTikTok" placeholder="ID TikTok" />
+  <button id="btnSignup" class="action">Đăng ký và vào app</button>
+  <div id="signup-notice">⚠️ Nick TikTok phải đủ follower mới đăng nhập được</div>
+</div>
+
+<script>
+function showNotification(msg,bg='#51cf66'){
+    const n=document.createElement('div'); 
+    n.className='notification'; 
+    n.innerText=msg; 
+    n.style.background=bg; 
+    document.body.appendChild(n); 
+    n.style.display='block'; 
+    setTimeout(()=>n.remove(),4000);
+}
+
+function moneyRain(){
+    for(let i=0;i<10;i++){
+        const c=document.createElement('div');
+        c.className='coin';
+        c.style.left=Math.random()*window.innerWidth+'px';
+        c.style.animationDuration=(Math.random()*1.5+1.5)+'s';
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),3000);
+    }
+}
+
+document.getElementById('btnSignup').onclick=()=>{
+    const user=document.getElementById('regUser').value.trim();
+    const pass=document.getElementById('regPass').value.trim();
+    const ref=document.getElementById('regRef').value.trim();
+    const tiktok=document.getElementById('regTikTok').value.trim();
+
+    if(!user || !pass || !tiktok){
+        alert('⚠️ Vui lòng nhập đầy đủ tên tài khoản, mật khẩu và ID TikTok!');
+        return;
+    }
+
+    showNotification(`🎉 Chào mừng ${user}! Bắt đầu trải nghiệm GoGo Lite.`,'#4dabf7');
+    showNotification('⚠️ Nick TikTok phải đủ follower mới đăng nhập được','#ffa94d');
+    moneyRain();
+};
+</script>
+</body>
+</html>
