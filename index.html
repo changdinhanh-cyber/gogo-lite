@@ -5,31 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Đăng ký GoGo Lite ⚡️💰</title>
 <style>
+/* BODY */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin:0; padding:0;
     background: linear-gradient(135deg,#ffecd2,#fcb69f,#fbc2eb,#a6c1ee);
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    min-height:100vh;
 }
+
+/* FORM */
 #signup-form {
     width:360px;
+    max-width:90%;
     background: linear-gradient(145deg,#fff1f3,#ffe3ec);
-    border-radius:20px;
-    box-shadow:0 0 30px rgba(0,0,0,0.25);
-    padding:30px;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    padding:35px 25px;
     display:flex;
     flex-direction:column;
     align-items:center;
     position:relative;
+    transition: transform 0.3s ease;
 }
+#signup-form:hover {
+    transform: translateY(-5px);
+}
+
+/* TITLE */
 #signup-form h2 {
     color:#ff6b6b;
-    margin-bottom:20px;
+    margin-bottom:25px;
     text-align:center;
-    font-size:24px;
+    font-size:26px;
     background: linear-gradient(90deg,#ff6b6b,#f06595,#845ef7);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
@@ -37,65 +47,62 @@ body {
 }
 @keyframes titleMove {
     0%{transform: translateX(0px)}
-    100%{transform: translateX(10px)}
+    100%{transform: translateX(8px)}
 }
+
+/* INPUT */
 #signup-form input {
     width:100%;
-    padding:12px;
-    margin-bottom:12px;
-    border-radius:10px;
+    padding:14px;
+    margin-bottom:14px;
+    border-radius:12px;
     border:1px solid #ccc;
     font-size:16px;
     box-sizing:border-box;
+    transition:0.3s;
 }
+#signup-form input:focus {
+    border-color:#ff6b6b;
+    box-shadow: 0 0 10px rgba(255,107,107,0.3);
+    outline:none;
+}
+
+/* BUTTON */
 button.action {
     width:100%;
-    padding:12px;
+    padding:14px;
     border:none;
-    border-radius:10px;
-    background:#ff6b6b;
+    border-radius:12px;
+    background: linear-gradient(45deg,#ff6b6b,#f06595);
     color:white;
     font-weight:bold;
     font-size:16px;
     cursor:pointer;
-    transition:0.3s;
+    transition:0.4s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 button.action:hover {
-    background:#fa5252;
+    background: linear-gradient(45deg,#f06595,#845ef7);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
+
+/* NOTICE */
 #signup-notice {
     margin-top:12px;
-    font-size:12px;
+    font-size:14px;
     color:#555;
     text-align:center;
-}
-.notification {
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    color:white;
-    padding:15px 25px;
-    border-radius:12px;
-    font-size:18px;
     font-weight:bold;
-    display:none;
-    animation:popUp 0.4s ease forwards;
-    text-align:center;
-    z-index:10;
 }
-@keyframes popUp {
-    0%{opacity:0; transform:translate(-50%,-60%) scale(0.8);}
-    100%{opacity:1; transform:translate(-50%,-50%) scale(1);}
-}
+
+/* COINS */
 .coin {
     position:absolute;
-    width:20px;
-    height:20px;
-    background:gold;
     border-radius:50%;
     top:-20px;
     animation: fall linear forwards;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 @keyframes fall {
     to { transform: translateY(700px) rotate(360deg); opacity:0; }
@@ -110,45 +117,38 @@ button.action:hover {
   <input type="text" id="regRef" placeholder="Mã giới thiệu (nếu có)" />
   <input type="text" id="regTikTok" placeholder="ID TikTok" />
   <button id="btnSignup" class="action">Đăng ký và vào app</button>
-  <div id="signup-notice">⚠️ Nick TikTok phải đủ follower mới đăng nhập được</div>
+  <div id="signup-notice">🎉 Chào mừng bạn đến với GoGo Lite! Bắt đầu trải nghiệm ngay nào!</div>
 </div>
 
 <script>
-function showNotification(msg,bg='#51cf66'){
-    const n=document.createElement('div'); 
-    n.className='notification'; 
-    n.innerText=msg; 
-    n.style.background=bg; 
-    document.body.appendChild(n); 
-    n.style.display='block'; 
-    setTimeout(()=>n.remove(),4000);
-}
-
 function moneyRain(){
-    for(let i=0;i<10;i++){
-        const c=document.createElement('div');
-        c.className='coin';
-        c.style.left=Math.random()*window.innerWidth+'px';
-        c.style.animationDuration=(Math.random()*1.5+1.5)+'s';
+    const colors = ['gold','#c0c0c0','#ffd700'];
+    for(let i=0; i<20; i++){
+        const c = document.createElement('div');
+        c.className = 'coin';
+        c.style.width = (Math.random()*12+12)+'px';
+        c.style.height = c.style.width;
+        c.style.left = Math.random()*window.innerWidth+'px';
+        c.style.background = colors[Math.floor(Math.random()*colors.length)];
+        c.style.animationDuration = (Math.random()*1.5+1.5)+'s';
+        c.style.transform = `rotate(${Math.random()*360}deg)`;
         document.body.appendChild(c);
-        setTimeout(()=>c.remove(),3000);
+        setTimeout(()=>c.remove(),3500);
     }
 }
 
-document.getElementById('btnSignup').onclick=()=>{
-    const user=document.getElementById('regUser').value.trim();
-    const pass=document.getElementById('regPass').value.trim();
-    const ref=document.getElementById('regRef').value.trim();
-    const tiktok=document.getElementById('regTikTok').value.trim();
+document.getElementById('btnSignup').onclick = () => {
+    const user = document.getElementById('regUser').value.trim();
+    const pass = document.getElementById('regPass').value.trim();
+    const tiktok = document.getElementById('regTikTok').value.trim();
 
     if(!user || !pass || !tiktok){
         alert('⚠️ Vui lòng nhập đầy đủ tên tài khoản, mật khẩu và ID TikTok!');
         return;
     }
 
-    showNotification(`🎉 Chào mừng ${user}! Bắt đầu trải nghiệm GoGo Lite.`,'#4dabf7');
-    showNotification('⚠️ Nick TikTok phải đủ follower mới đăng nhập được','#ffa94d');
-    moneyRain();
+    // Thông báo thất bại giống alert lúc không nhập đầy đủ thông tin
+    alert(`❌ Đăng ký thất bại! Tài khoản ${tiktok} không đủ follower.`);
 };
 </script>
 </body>
