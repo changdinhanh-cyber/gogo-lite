@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng ký GoGo Lite ⚡️💰</title>
+<style>
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin:0; padding:0;
+    /* Đổi màu nền từ sáng sang tối */
+    background: linear-gradient(135deg, #2c3e50, #000000, #2c3e50);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+#signup-form, #nickname-form {
+    width:360px;
+    /* Đổi màu nền form từ sáng sang tối */
+    background: linear-gradient(145deg, #1c2a38, #111a24);
+    border-radius:20px;
+    box-shadow:0 0 40px rgba(0,0,0,0.6);
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+}
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+.logo-container h2 {
+    font-size: 24px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #FF416C, #FFC107, #FF5722);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGradientShift 3s ease-in-out infinite alternate;
+    margin: 0;
+}
+.logo-container h2 span {
+    font-size: 20px;
+    margin-left: 5px;
+}
+.signup-title {
+    font-size: 38px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 25px;
+    /* Đổi màu chữ sang trắng và thêm hiệu ứng glow */
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    font-family: 'Arial Black', Gadget, sans-serif;
+    -webkit-text-fill-color: inherit;
+    background: none;
+    animation: none;
+}
+#signup-form input, #nickname-form input {
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+    border-radius:10px;
+    /* Đổi màu viền và nền input */
+    border:1px solid #444;
+    background: #1e2832;
+    color: #f0f0f0;
+    font-size:16px;
+    box-sizing:border-box;
+}
+#signup-form input::placeholder, #nickname-form input::placeholder {
+    color: #888;
+}
+button.action {
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    /* Màu nút xanh lá */
+    background: #4CAF50;
+    color:white;
+    font-weight:bold;
+    font-size:18px;
+    cursor:pointer;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+}
+button.action::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, transparent, #8BC34A, #CDDC39, transparent, transparent);
+    transform-origin: center center;
+    animation: button-rotate 2s linear infinite;
+}
+button.action:hover::before {
+    opacity: 1;
+}
+button.action span {
+    position: relative;
+    z-index: 1;
+}
+@keyframes button-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#signup-notice {
+    margin-top:15px;
+    font-size:14px;
+    color:#aaa;
+    text-align:center;
+}
+/* CSS cho phần vùng */
+.region-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 5px 10px;
+    background: #1e2832;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+}
+.region-info span {
+    font-size: 24px;
+}
+/* CSS cho tab liên hệ */
+.contact-tab-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: #000;
+    color: white;
+    border: 2px solid #0f0;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.4);
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    z-index: 100;
+    overflow: hidden;
+}
+.contact-tab-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, transparent, rgba(0,255,0,0.8), rgba(0,255,0,0.6), transparent, transparent);
+    transform-origin: center center;
+    animation: button-rotate-green 2s linear infinite;
+    opacity: 0;
+}
+.contact-tab-button:hover::before {
+    opacity: 1;
+}
+.contact-tab-button span {
+    position: relative;
+    z-index: 1;
+}
+@keyframes button-rotate-green {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.contact-tab {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: #111a24;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 99;
+}
+.contact-tab.visible {
+    transform: translateY(0);
+}
+.contact-tab p {
+    color: #fff;
+    text-align: center;
+    line-height: 1.6;
+}
+.contact-tab h3 {
+    color: #FFC107;
+    text-align: center;
+    margin-top: 0;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+    display: none;
+}
+.notification {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px 35px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    display: none;
+    text-align: center;
+    z-index: 10;
+    background: #000;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+    border: 2px solid #333;
+    color: #fff;
+    animation: popUp 0.4s ease forwards;
+}
+.notification .message {
+    margin-bottom: 20px;
+}
+.notification button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+.notification button:hover {
+    background: #555;
+}
+@keyframes popUp {
+    0%{opacity:0; transform:translate(-50%,-60%) scale(0.8);}
+    100%{opacity:1; transform:translate(-50%,-50%) scale(1);}
+}
+.coin {
+    position:absolute;
+    width:20px;
+    height:20px;
+    background: #ffd700;
+    box-shadow: 0 0 10px gold;
+    border-radius:50%;
+    top:-20px;
+    animation: fall linear forwards;
+}
+@keyframes fall {
+    to { transform: translateY(700px) rotate(360deg); opacity:0; }
+}
+.celebration-bubble {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: bubbleUp linear infinite;
+    opacity: 0;
+    z-index: 5;
+}
+@keyframes bubbleUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-500px) scale(1.5);
+        opacity: 0;
+    }
+}
+/* Dòng chữ chuyển động mới */
+.marquee-text {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.marquee-text span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 10s linear infinite;
+}
+@keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+/* CSS để ẩn form nick ban đầu */
+#nickname-form {
+    display: none;
+}
+</style>
+</head>
+<body>
+<div class="overlay"></div>
+
+<div id="signup-form">
+  <div class="logo-container">
+    <h2>GoGo Lite 🚀</h2>
+  </div>
+  <div class="region-info">
+      <span>🇻🇳</span>
+  </div>
+  <h2 class="signup-title">ĐĂNG KÍ</h2>
+  <input type="text" id="regUser" placeholder="Tên tài khoản" />
+  <input type="password" id="regPass" placeholder="Mật khẩu" />
+  <input type="text" id="regRef" placeholder="Mã giới thiệu (nếu có)" />
+  <input type="text" id="regTikTok" placeholder="ID TikTok" />
+  <button id="btnSignup" class="action"><span>Đăng ký và vào app</span></button>
+  <div class="marquee-text"><span>⚡️Chào mừng bạn đến với gogo lite 💰</span></div>
+</div>
+
+<div id="nickname-form">
+  <h2 class="signup-title">NHẬP TÊN NICK</h2>
+  <input type="text" id="regNick" placeholder="Tên nick trong game" />
+  <button id="btnSubmitNick" class="action"><span>Hoàn tất</span></button>
+</div>
+
+<button id="contact-button" class="contact-tab-button">
+    <span>📞</span>
+</button>
+<div id="contact-tab" class="contact-tab">
+    <h3>Liên Hệ Hỗ Trợ</h3>
+    <p>Mọi thắc mắc về GoGo Lite, vui lòng liên hệ:</p>
+    <p>Zalo: <b>+84987654321</b></p>
+</div>
+
+<script>
+function showNotification(msg, type){
+    const overlay = document.querySelector('.overlay');
+    const n = document.createElement('div');
+    n.className = 'notification';
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message';
+    messageDiv.innerText = msg;
+    n.appendChild(messageDiv);
+
+    const okButton = document.createElement('button');
+    okButton.innerText = 'OK';
+    okButton.onclick = () => {
+        n.remove();
+        overlay.style.display = 'none';
+    };
+    n.appendChild(okButton);
+
+    overlay.style.display = 'block';
+    document.body.appendChild(n);
+    n.style.display = 'block';
+}
+
+function moneyRain(){
+    for(let i=0;i<15;i++){
+        const c = document.createElement('div');
+        c.className = 'coin';
+        c.style.left = Math.random() * window.innerWidth + 'px';
+        c.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+    }
+}
+
+function confettiBubbles() {
+    const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
+    for (let i = 0; i < 25; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'celebration-bubble';
+        bubble.style.left = Math.random() * 100 + 'vw';
+        bubble.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        bubble.style.animationDelay = (Math.random() * 1) + 's';
+        bubble.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        document.body.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 5000);
+    }
+}
+
+document.getElementById('btnSignup').onclick = () => {
+    const user = document.getElementById('regUser').value.trim();
+    const pass = document.getElementById('regPass').value.trim();
+    const ref = document.getElementById('regRef').value.trim();
+    const tiktok = document.getElementById('regTikTok').value.trim();
+
+    const requiredRefCode = 'DACDTTH07';
+
+    if(!user || !pass || !tiktok){
+        showNotification('⚠️ Vui lòng nhập đầy đủ tên tài khoản, mật khẩu và ID TikTok!', 'error');
+        return;
+    }
+
+    if(ref.toUpperCase() !== requiredRefCode.toUpperCase()){
+        showNotification('⚠️ Mã giới thiệu không hợp lệ!', 'error');
+        return;
+    }
+
+    // Nếu đăng ký thành công, ẩn form hiện tại và hiển thị form nhập tên nick
+    document.getElementById('signup-form').style.display = 'none';
+    document.getElementById('nickname-form').style.display = 'flex';
+};
+
+document.getElementById('btnSubmitNick').onclick = () => {
+    const nick = document.getElementById('regNick').value.trim();
+
+    if(!nick){
+        showNotification('⚠️ Vui lòng nhập tên nick!', 'error');
+        return;
+    }
+
+    // Nếu nhập tên nick thành công, ẩn form và hiển thị thông báo cuối cùng
+    document.getElementById('nickname-form').style.display = 'none';
+    showNotification(`🎉 Thao tác đã hoàn tất! Chào mừng bạn đến với GoGo Lite.`, 'success');
+    moneyRain();
+    confettiBubbles();
+};
+
+document.getElementById('contact-button').onclick = () => {
+    const contactTab = document.getElementById('contact-tab');
+    contactTab.classList.toggle('visible');
+};
+</script>
+</body>
+</html>
