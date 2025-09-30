@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>⚡️GoGo Lite Premium - Ứng Dụng Tối Ưu</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#212529">
+    <link rel="apple-touch-icon" href="/logo_192.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <style>
+        /* Biến CSS gốc được tinh chỉnh */
+    
+        :root {
+            --bg: #1c1f24; /* Nền tối hiện đại */
+            --card-bg: rgba(30, 33, 38, 0.7); /* Thẻ nền trong suốt */
+            --glass: rgba(255, 255, 255, 0.08); /* Hiệu ứng kính */
+            --radius: 18px;
+            --brand: #ffd43b; /* Vàng nổi bật */
+            --accent: #ff6b6b; /* Đỏ nhấn mạnh */
+            --success: #51cf66;
+            --info: #4dabf7;
+            --warning: #ffd93d;
+            --frog: #69db7c; /* MÀU CỦA CÓC (MỚI) */
+            --text: #f8f9fa;
+            --text-secondary: #adb5bd;
+            --blue: #4dabf7;
+            --cash: #4c6ef5; /* MÀU TIỀN MẶT */
+            --boost: #ff8c00; /* MÀU CHO HIỆU ỨNG TĂNG TỐC MỚI */
+        }
+
+        /* Thiết lập chung */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Lớp container chính cho cả Login và App */
+        .main-container {
+            width: 100%;
+            max-width: 450px; 
+            margin: 0 auto;
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            background-color: var(--bg);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- STYLES FOR LOGIN, APP, DASHBOARD, MINING (Giữ nguyên) --- */
+
+        /* Giao diện Đăng nhập */
+        .login-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            height: 100vh;
+            background: linear-gradient(145deg, #1c1f24, #2c3243);
+        }
+        .login-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .login-header h1 {
+            color: var(--brand);
+            font-size: 2.5em;
+            font-weight: 900;
+        }
+        .login-header p {
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+        .login-form {
+            width: 100%;
+            max-width: 350px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass);
+        }
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        .login-form input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid var(--glass);
+            border-radius: 10px;
+            background-color: var(--glass);
+            color: var(--text);
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--brand);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--brand);
+            color: #121212;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .login-btn:hover {
+            background-color: #f7b731;
+        }
+        .login-btn:active {
+            transform: scale(0.99);
+        }
+
+        /* Giao diện Ứng dụng chính */
+        .app-container {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 20px;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 500;
+            border-bottom: 1px solid var(--glass);
+        }
+        header h2 {
+            font-size: 1.4em;
+            font-weight: 800;
+            color: var(--brand);
+        }
+        
+        /* Icon Hồ sơ/Cài đặt */
+        header .profile-icon {
+            font-size: 1.2em;
+            width: 35px;
+            height: 35px;
+            background-color: var(--glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Coin Status Style */
+        .coin-status {
+            display: flex;
+            align-items: center;
+            background-color: var(--glass);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: 5px;
+        }
+        .coin-status:hover {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+        .coin-status i {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+        
+        /* Riêng cho Cash Status */
+        .cash-status i {
+            color: var(--cash); 
+        }
+
+        /* Riêng cho Coin Status */
+        .coin-status i.fa-frog {
+            color: var(--frog);
+        }
+
+        /* Boost Status (NEW) */
+        .boost-status {
+            background-color: var(--boost);
+            color: #1c1f24;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 900;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .boost-status i {
+            font-size: 1em;
+            margin-right: 5px;
+            color: #1c1f24;
+        }
+        #boost-time-display {
+             min-width: 40px; /* Giữ độ rộng cố định cho đồng hồ đếm ngược */
+             text-align: center;
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .welcome-card {
+            background: linear-gradient(135deg, #343a40, #1c1f24);
+            padding: 25px;
+            border-radius: var(--radius);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .welcome-card h3 {
+            color: var(--brand);
+            margin-bottom: 10px;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .status-item {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--glass);
+        }
+        .status-item .value {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--success);
+            margin-bottom: 5px;
+        }
+        .status-item .label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        /* Feature List Style */
+        .feature-list h4 {
+            color: var(--info);
+            margin: 20px 0 15px 0;
+            font-size: 1.2em;
+            border-bottom: 1px solid var(--glass);
+            padding-bottom: 5px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        .feature-item:hover {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+        .feature-item i {
+            font-size: 1.5em;
+            margin-right: 15px;
+            color: var(--brand);
+        }
+        .feature-item p {
+            font-weight: 600;
+        }
+
+        /* Coin Mining View Style */
+        .coin-mining-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #2c3243, #1c1f24);
+            border-radius: var(--radius);
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .coin-mining-card h3 {
+            color: var(--brand);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .coin-image {
+            font-size: 5em;
+            color: var(--success);
+            margin: 20px 0;
+            animation: floatCoin 2s ease-in-out infinite alternate;
+        }
+        .coin-counter {
+            font-size: 3em;
+            font-weight: 900;
+            color: var(--success);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .coin-counter i {
+            font-size: 0.8em;
+            color: var(--brand);
+        }
+        .mine-btn {
+            width: 100%;
+            padding: 18px;
+            background-color: var(--brand);
+            color: #121212;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .mine-btn:hover {
+            background-color: #f7b731;
+        }
+        .mine-btn:active {
+            transform: scale(0.98);
+        }
+        .mining-rate {
+            color: var(--text-secondary);
+            margin-top: 15px;
+        }
+
+        /* Thanh điều hướng */
+        nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 450px;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 600;
+        }
+        .nav-item {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8em;
+            font-weight: 600;
+            padding: 5px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .nav-item i {
+            display: block;
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+        .nav-item.active {
+            color: var(--brand);
+        }
+        
+        /* --- NÂNG CẤP HỆ THỐNG THÔNG BÁO (MODAL) --- */
+        
+        /* Backdrop và Blur */
+        #notification-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px); /* Hiệu ứng làm mờ xung quanh */
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9000;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #notification-backdrop.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .notification-modal {
+            max-width: 320px;
+            width: 90%;
+            background: linear-gradient(145deg, #2c3243, #1c1f24);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            padding: 30px 20px;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng pop-up */
+            position: relative;
+        }
+        #notification-backdrop.show .notification-modal {
+            transform: scale(1);
+        }
+
+        .notification-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            animation: bounceIn 0.5s ease-out;
+        }
+        .notification-modal h4 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            color: var(--brand);
+        }
+        .notification-modal p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .modal-btn {
+            padding: 10px 25px;
+            background-color: var(--brand);
+            color: #121212;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        /* Icon Colors */
+        .icon-success { color: var(--success); }
+        .icon-error { color: var(--accent); }
+        .icon-info { color: var(--info); }
+        .icon-warning { color: var(--warning); }
+        
+        /* Hiệu ứng Tiền rơi (Particle System) */
+        .coin-particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .coin-particle {
+            position: absolute;
+            font-size: 1.2em;
+            color: var(--brand);
+            animation: coinFall 1.5s ease-in forwards;
+            opacity: 0;
+            text-shadow: 0 0 5px rgba(255, 212, 59, 0.5);
+        }
+
+        /* Keyframes */
+        @keyframes floatCoin {
+            from { transform: translateY(0px) rotate(0deg); }
+            to { transform: translateY(-10px) rotate(5deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes coinFall {
+            0% { 
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg); 
+            }
+            100% { 
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) scale(0.5) rotate(var(--r)); 
+            }
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            60% { opacity: 1; transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* STYLE MỚI CHO NÚT ĐĂNG XUẤT */
+        .logout-btn-style {
+            background-color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            color: #121212 !important; 
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.5);
+        }
+        .logout-btn-style:hover {
+            background-color: #e55c5c !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+
+    <div id="loginContainer" class="login-container">
+        <div class="login-header">
+            <h1>⚡️ GoGo Lite Premium</h1>
+            <p>Đăng nhập để truy cập các tính năng VIP</p>
+        </div>
+        <div class="login-form">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="usernameInput" placeholder="Tên đăng nhập/Email" />
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="passwordInput" placeholder="Mật khẩu" />
+            </div>
+            <div class="input-group">
+                <i class="fas fa-code"></i>
+                <input type="text" id="referralCodeInput" placeholder="Mã giới thiệu của bạn" />
+            </div>
+            <div class="input-group">
+                <i class="fab fa-tiktok"></i>
+                <input type="text" id="tiktokIdInput" placeholder="ID TikTok đã đăng ký" />
+            </div>
+            <button id="loginBtn" class="login-btn">ĐĂNG NHẬP VIP</button>
+        </div>
+    </div>
+
+    <div id="appContainer" class="app-container">
+        <header id="appHeader"></header>
+        <div id="appContent" class="dashboard-content">
+        </div>
+        <nav id="appNav">
+            <div class="nav-item active" data-view="dashboard">
+                <i class="fas fa-home"></i> Dashboard
+            </div>
+            <div class="nav-item" data-view="features">
+                <i class="fas fa-rocket"></i> Tính năng VIP
+            </div>
+            <div class="nav-item" data-view="mining">
+                <i class="fas fa-gem"></i> Đào Xu
+            </div>
+            <div class="nav-item" data-view="redeem">
+                <i class="fas fa-wallet"></i> Đổi Xu
+            </div>
+            <div class="nav-item" data-view="profile">
+                <i class="fas fa-user-circle"></i> Hồ sơ
+            </div>
+        </nav>
+    </div>
+
+</div>
+
+<div id="notification-backdrop">
+    <div class="notification-modal">
+        <div class="coin-particle-container" id="coinParticleContainer"></div>
+        <div class="notification-icon" id="notificationIcon"></div>
+        <h4 id="notificationTitle"></h4>
+        <p id="notificationMessage"></p>
+        <button class="modal-btn" onclick="hideModalNotification()">Đóng</button>
+    </div>
+</div>
+
+<script>
+    // Định danh localStorage keys
+    const LS = {
+        isLoggedIn: 'gogo-is-logged-in',
+        totalCoins: 'gogo-total-coins',
+        totalCash: 'gogo-total-cash', 
+        boostEndTime: 'gogo-boost-end-time',
+        isSoundOn: 'gogo-sound-on', 
+        isNotifyOn: 'gogo-notify-on', 
+        theme: 'gogo-theme',
+        linkedAccount: 'gogo-linked-account', 
+        walletAddress: 'gogo-wallet-address' 
+    };
+    
+    // Biến toàn cục để quản lý Timer 
+    let boostTimer = null;
+
+    // Khởi tạo các giá trị
+    if (!localStorage.getItem(LS.totalCoins)) {
+        localStorage.setItem(LS.totalCoins, 3500); 
+    }
+    if (!localStorage.getItem(LS.totalCash)) { 
+        localStorage.setItem(LS.totalCash, 0); 
+    }
+    if (!localStorage.getItem(LS.boostEndTime)) { 
+        localStorage.setItem(LS.boostEndTime, 0); 
+    }
+    if (!localStorage.getItem(LS.isSoundOn)) { 
+        localStorage.setItem(LS.isSoundOn, 'true'); 
+    }
+    if (!localStorage.getItem(LS.isNotifyOn)) { 
+        localStorage.setItem(LS.isNotifyOn, 'true'); 
+    }
+    if (!localStorage.getItem(LS.theme)) { 
+        localStorage.setItem(LS.theme, 'dark'); // Mặc định dark
+    }
+    if (!localStorage.getItem(LS.linkedAccount)) { 
+        localStorage.setItem(LS.linkedAccount, ''); // Khởi tạo tài khoản liên kết
+    }
+    if (!localStorage.getItem(LS.walletAddress)) { 
+        localStorage.setItem(LS.walletAddress, ''); // Khởi tạo địa chỉ ví
+    }
+
+
+    // Hàm tiện ích DOM
+    const $ = selector => document.querySelector(selector);
+    const $$ = selector => document.querySelectorAll(selector);
+
+    // Các phần tử DOM chính
+    const loginContainer = $('#loginContainer');
+    const appContainer = $('#appContainer');
+    const loginBtn = $('#loginBtn');
+    const referralCodeInput = $('#referralCodeInput');
+    const tiktokIdInput = $('#tiktokIdInput');
+    const appContent = $('#appContent');
+    const appNav = $('#appNav');
+    const appHeader = $('#appHeader');
+    
+    // Phần tử Notification Modal
+    const modalBackdrop = $('#notification-backdrop');
+    const notificationIcon = $('#notificationIcon');
+    const notificationTitle = $('#notificationTitle');
+    const notificationMessage = $('#notificationMessage');
+    const coinParticleContainer = $('#coinParticleContainer');
+    
+    // THÊM CÁC PHẦN TỬ AUDIO MỚI VÀ HÀM PLAY SOUND
+    const audioNavClick = new Audio('nav-click.mp3');
+    const audioMineSuccess = new Audio('mine-success.mp3');
+    const audioError = new Audio('error.mp3');
+
+    function playSound(type) {
+        if (localStorage.getItem(LS.isSoundOn) !== 'true') return;
+        
+        // Dừng âm thanh đang chạy trước khi phát lại (để có thể bấm liên tục)
+        switch (type) {
+            case 'nav':
+                audioNavClick.currentTime = 0;
+                audioNavClick.play().catch(e => console.log("Audio play failed:", e));
+                break;
+            case 'success':
+                audioMineSuccess.currentTime = 0;
+                audioMineSuccess.play().catch(e => console.log("Audio play failed:", e));
+                break;
+            case 'error':
+                audioError.currentTime = 0;
+                audioError.play().catch(e => console.log("Audio play failed:", e));
+                break;
+        }
+    }
+    
+    // --- UTILITY LOGIC (BOOST) ---
+    
+    const BOOST_DURATION = 3600000; // 1 giờ = 3,600,000 milliseconds
+
+    // Hàm cập nhật hiển thị thời gian Boost trong Header
+    function updateBoostDisplay() {
+        const endTime = parseInt(localStorage.getItem(LS.boostEndTime));
+        const currentTime = Date.now();
+        const boostDisplayElement = $('#boost-time-display');
+
+        if (endTime > currentTime) {
+            const timeLeftMs = endTime - currentTime;
+            const minutes = Math.floor(timeLeftMs / 60000);
+            const seconds = Math.floor((timeLeftMs % 60000) / 1000);
+            const timeLeftText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (boostDisplayElement) {
+                 boostDisplayElement.textContent = timeLeftText;
+            }
+        } else {
+            // Hết giờ
+            clearInterval(boostTimer);
+            boostTimer = null;
+            localStorage.setItem(LS.boostEndTime, 0);
+            renderHeader(); // Render lại Header để xóa thanh Boost
+            
+            // Nếu đang ở view features, render lại để kích hoạt nút
+            if ($('#appContent').innerHTML.includes('Tăng tốc Đào (2X) đang hoạt động')) {
+                 renderFeaturesView();
+            }
+            
+            showModalNotification('Hết Thời Gian', 'Tăng tốc độ Đào (2X) đã hết hiệu lực. Tốc độ quay về mức bình thường.', 'info');
+        }
+    }
+
+    // Hàm kiểm tra trạng thái tăng tốc
+    function checkBoostStatus() {
+        const endTime = parseInt(localStorage.getItem(LS.boostEndTime));
+        const currentTime = Date.now();
+        
+        if (endTime > currentTime) {
+            return endTime;
+        } else {
+            // Đảm bảo trạng thái Boost được reset nếu đã hết giờ
+            if (endTime > 0) {
+                localStorage.setItem(LS.boostEndTime, 0);
+            }
+            return 0;
+        }
+    }
+    
+    // Hàm kích hoạt Boost
+    function activateBoost() {
+        if (checkBoostStatus() > 0) {
+            playSound('error');
+            showModalNotification('Tính năng đang hoạt động', 'Tăng tốc Đào (2X) đã được kích hoạt. Vui lòng chờ hết thời gian hiện tại.', 'warning');
+            return;
+        }
+        
+        const newEndTime = Date.now() + BOOST_DURATION;
+        localStorage.setItem(LS.boostEndTime, newEndTime);
+        
+        // Bắt đầu timer cập nhật sau khi kích hoạt
+        if (boostTimer) {
+             clearInterval(boostTimer);
+        }
+        boostTimer = setInterval(updateBoostDisplay, 1000);
+        
+        // Cập nhật giao diện header và thông báo
+        renderHeader();
+        
+        // Nếu đang ở view features, render lại để hiển thị trạng thái đang chạy
+        if ($('#appContent').innerHTML.includes('Tăng tốc độ Đào **(2X/1h)**')) {
+             renderFeaturesView();
+        }
+        
+        playSound('success');
+        showModalNotification(
+            '🚀 Tăng tốc 2X Đã Kích hoạt!', 
+            'Tốc độ Đào Xu của bạn đã được tăng lên 2X. Hiệu lực trong 1 giờ. Hãy bắt đầu đào ngay!', 
+            'success'
+        );
+    }
+    
+    // --- HỆ THỐNG THÔNG BÁO ---
+
+    function hideModalNotification() {
+        modalBackdrop.classList.remove('show');
+        coinParticleContainer.innerHTML = ''; // Xóa hiệu ứng xu
+    }
+
+    // Hàm chính hiển thị thông báo Modal (Cập nhật âm thanh)
+    function showModalNotification(title, message, type = 'info', spawnCoins = false) {
+        let iconClass = '';
+        let iconHtml = '';
+        
+        switch (type) {
+            case 'success':
+                iconClass = 'icon-success';
+                iconHtml = '<i class="fas fa-check-circle"></i>';
+                playSound('success');
+                break;
+            case 'error':
+                iconClass = 'icon-error';
+                iconHtml = '<i class="fas fa-exclamation-triangle"></i>';
+                playSound('error');
+                break;
+            case 'warning':
+                iconClass = 'icon-warning';
+                iconHtml = '<i class="fas fa-exclamation-circle"></i>';
+                playSound('error'); // Dùng âm thanh lỗi cho cảnh báo
+                break;
+            case 'info':
+            default:
+                iconClass = 'icon-info';
+                iconHtml = '<i class="fas fa-info-circle"></i>';
+                playSound('nav'); // Dùng âm thanh click chung cho thông tin
+                break;
+        }
+
+        notificationIcon.className = 'notification-icon ' + iconClass;
+        notificationIcon.innerHTML = iconHtml;
+        notificationTitle.textContent = title;
+        notificationMessage.textContent = message;
+
+        modalBackdrop.classList.add('show');
+        if (spawnCoins) {
+            spawnCoinEffect(30); 
+        }
+    }
+
+    // Hàm tạo hiệu ứng xu rơi (Giữ nguyên)
+    function spawnCoinEffect(count) {
+        coinParticleContainer.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+            const coin = document.createElement('div');
+            coin.className = 'coin-particle fas fa-coins';
+            
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 20 - 10; 
+            
+            const endX = (Math.random() - 0.5) * 300; 
+            const endY = 400 + Math.random() * 100; 
+            const rotation = Math.random() * 720 - 360;
+            coin.style.left = `${startX}%`;
+            coin.style.top = `${startY}px`;
+            
+            coin.style.setProperty('--x', `${endX}px`);
+            coin.style.setProperty('--y', `${endY}px`);
+            coin.style.setProperty('--r', `${rotation}deg`);
+            coin.style.animationDelay = `${i * 0.03}s`; 
+            coin.style.animationDuration = `${1.2 + Math.random() * 0.8}s`; 
+
+            coinParticleContainer.appendChild(coin);
+        }
+    }
+
+    // --- RENDER FUNCTIONS (Tạo giao diện động) ---
+
+    // HÀM RENDER HEADER
+    function renderHeader() {
+        const boostEndTime = checkBoostStatus(); 
+        
+        const currentCoins = localStorage.getItem(LS.totalCoins) || 0;
+        const formattedCoins = parseInt(currentCoins).toLocaleString('vi-VN');
+        
+        const currentCash = localStorage.getItem(LS.totalCash) || 0;
+        const formattedCash = parseFloat(currentCash).toFixed(2);
+        
+        let boostStatusHtml = '';
+
+        if (boostEndTime > 0) {
+            if (!boostTimer) {
+                 boostTimer = setInterval(updateBoostDisplay, 1000);
+            }
+            
+            boostStatusHtml = `
+                <div class="boost-status" onclick="switchView('features')">
+                    <i class="fas fa-bolt"></i> <span id="boost-time-display">00:00</span>
+                </div>
+            `;
+            updateBoostDisplay(); 
+        } else {
+             if (boostTimer) {
+                 clearInterval(boostTimer);
+                 boostTimer = null;
+             }
+        }
+
+        appHeader.innerHTML = `
+            <h2>⚡️ GOGO LITE</h2>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                ${boostStatusHtml}
+                
+                <div class="coin-status cash-status" onclick="switchView('redeem')">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>${formattedCash}</span>
+                </div>
+
+                <div class="coin-status" onclick="switchView('mining')">
+                    <i class="fas fa-frog"></i>
+                    <span>${formattedCoins}</span>
+                </div>
+                
+                <div class="profile-icon" onclick="switchView('settings')">
+                    <i class="fas fa-cog"></i> 
+                </div>
+            </div>
+        `;
+    }
+
+    function renderDashboardView() {
+        const currentCoins = localStorage.getItem(LS.totalCoins) || 0;
+        appContent.innerHTML = `
+            <div class="welcome-card">
+                <h3>Chào mừng đến với GoGo Lite Premium!</h3>
+                <p>Nền tảng tối ưu hóa TikTok thế hệ mới.</p>
+            </div>
+            
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="value" style="color: var(--brand);">98.5%</div>
+                    <div class="label">Hiệu suất Tối ưu</div>
+                </div>
+                <div class="status-item">
+                <div class="value" style="color: var(--info);">VIP</div>
+                    <div class="label">Cấp độ Tài khoản</div>
+                </div>
+                <div class="status-item">
+                    <div class="value">${parseInt(currentCoins).toLocaleString('vi-VN')}</div>
+                    <div class="label">Xu tích lũy</div>
+                </div>
+                <div class="status-item">
+                    <div class="value" style="color: var(--accent);">50 ngày</div>
+                    <div class="label">Hạn dùng Premium</div>
+                </div>
+            </div>
+
+            <div class="feature-list">
+                <h4>Hoạt động gần đây</h4>
+                <div class="feature-item" onclick="showModalNotification('Báo cáo Hiệu suất', 'Hiệu suất ngày hôm nay tăng 12%, đạt mức tối ưu 98.5%. Hãy tiếp tục duy trì!', 'info')">
+                    <i class="fas fa-chart-line"></i>
+                    <p>Báo cáo hiệu suất ngày: **Tăng 12%**</p>
+                </div>
+                <div class="feature-item" onclick="switchView('mining')">
+                    <i class="fas fa-bell"></i>
+                    <p>Thông báo: Bắt đầu **Đào Xu** ngay!</p>
+                </div>
+            </div>
+        `;
+    }
+
+    // HÀM RENDER FEATURES VIEW
+    function renderFeaturesView() {
+        const boostEndTime = checkBoostStatus();
+        let boostButtonHtml;
+        
+        if (boostEndTime > 0) {
+            const timeLeftMs = boostEndTime - Date.now();
+            const minutes = Math.floor(timeLeftMs / 60000);
+            const seconds = Math.floor((timeLeftMs % 60000) / 1000);
+            const timeLeftText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            boostButtonHtml = `
+                <div class="feature-item" style="background-color: var(--boost);">
+                    <i class="fas fa-clock" style="color: #1c1f24;"></i>
+                    <p style="color: #1c1f24;">Tăng tốc Đào (2X) đang hoạt động: <span id="features-boost-time-display">${timeLeftText}</span> còn lại</p>
+                </div>
+            `;
+            
+            let featuresBoostTimer = setInterval(() => {
+                const updatedEndTime = checkBoostStatus();
+                if (updatedEndTime > 0) {
+                    const updatedTimeLeftMs = updatedEndTime - Date.now();
+                    const updatedMinutes = Math.floor(updatedTimeLeftMs / 60000);
+                    const updatedSeconds = Math.floor((updatedTimeLeftMs % 60000) / 1000);
+                    const updatedTimeLeftText = `${updatedMinutes.toString().padStart(2, '0')}:${updatedSeconds.toString().padStart(2, '0')}`;
+                    
+                    const displayElement = $('#features-boost-time-display');
+                    if (displayElement) {
+                         displayElement.textContent = updatedTimeLeftText;
+                    }
+                } else {
+                     clearInterval(featuresBoostTimer);
+                     renderFeaturesView(); 
+                }
+            }, 1000);
+            
+            appContent.onDOMNodeRemoved = () => {
+                 clearInterval(featuresBoostTimer);
+            };
+
+        } else {
+            boostButtonHtml = `
+                <div class="feature-item" onclick="activateBoost()">
+                    <i class="fas fa-rocket" style="color: var(--boost);"></i>
+                    <p>Tăng tốc độ Đào **(2X/1h)**</p>
+                </div>
+            `;
+        }
+        
+        appContent.innerHTML = `
+            <div class="feature-list">
+                <h4 style="color: var(--accent);">Tính năng Độc quyền (Chỉ Premium)</h4>
+                <div class="feature-item" onclick="showModalNotification('Auto-Boost', 'Tính năng Auto-Boost đang hoạt động hiệu quả, tối ưu hóa lượt xem tự động.', 'success')">
+                    <i class="fas fa-fire" style="color: var(--accent);"></i>
+                    <p>Auto-Boost Video **(Mới)**</p>
+                </div>
+                
+                ${boostButtonHtml}
+
+                <div class="feature-item" onclick="switchView('mining')">
+                    <i class="fas fa-gem" style="color: var(--success);"></i>
+                    <p>Công cụ **Đào Xu** VIP</p>
+                </div>
+                <div class="feature-item" onclick="switchView('redeem')">
+                    <i class="fas fa-wallet" style="color: var(--info);"></i>
+                    <p>Đổi Xu **(VIP)** lấy USD</p>
+                </div>
+                <h4 style="color: var(--info);">Công cụ Tiện ích</h4>
+                <div class="feature-item" onclick="switchView('profile')">
+                    <i class="fas fa-user-circle" style="color: var(--info);"></i>
+                    <p>Xem Hồ Sơ & Đăng Xuất</p>
+                </div>
+            </div>
+        `;
+    }
+  
+    // HÀM RENDER PROFILE VIEW (ĐÃ CẬP NHẬT)
+    function renderProfileView() {
+        const currentCash = localStorage.getItem(LS.totalCash) || 0;
+        const formattedCash = parseFloat(currentCash).toFixed(2);
+        const linkedAccount = localStorage.getItem(LS.linkedAccount) || 'Chưa liên kết';
+        const walletAddress = localStorage.getItem(LS.walletAddress) || 'Chưa liên kết';
+        
+        appContent.innerHTML = `
+            <div class="welcome-card">
+                <h3>Thông tin Tài khoản</h3>
+                <p>Cập nhật hồ sơ và thông tin cá nhân.</p>
+            </div>
+            <div class="feature-list">
+                <div class="feature-item" onclick="showModalNotification('Thông tin', 'ID TikTok của bạn dùng để xác thực quyền VIP.', 'info')">
+                    <i class="fas fa-id-card"></i>
+                    <p>ID TikTok: **caddtth2102**</p>
+                </div>
+                <div class="feature-item" onclick="showModalNotification('Thông tin', 'Mã giới thiệu này đã được kích hoạt VIP thành công.', 'info')">
+                    <i class="fas fa-gift"></i>
+                    <p>Mã Giới Thiệu Của Bạn: **DACDTTH07**</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-money-bill-wave" style="color: var(--cash);"></i>
+                    <p>Số dư USD hiện có: **${formattedCash}**</p>
+                </div>
+
+                <h4 style="color: var(--accent);">Liên kết Tài khoản</h4>
+                <div class="feature-item" style="display: block; cursor: default; background: var(--card-bg);">
+                    <p style="margin-bottom: 10px;">
+                       <i class="fas fa-user-tag" style="margin-right: 10px;"></i>
+                       Tài khoản khác: <strong>${linkedAccount}</strong>
+                    </p>
+                    
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <i class="fas fa-user-tag"></i>
+                        <input type="text" id="linkedAccountInput" placeholder="Nhập tên tài khoản" style="padding: 10px 10px 10px 45px; width: 100%;" />
+                    </div>
+                    
+                    <button class="login-btn" id="linkAccountBtn" style="padding: 10px; font-size: 1em; background-color: var(--success);">
+                        LIÊN KẾT TÀI KHOẢN
+                    </button>
+                </div>
+
+                <h4 style="color: var(--accent); margin-top: 20px;">Địa chỉ Ví Nhận tiền</h4>
+                <div class="feature-item" style="display: block; cursor: default; background: var(--card-bg);">
+                    <p style="margin-bottom: 10px;">
+                       <i class="fas fa-wallet" style="margin-right: 10px;"></i>
+                       Ví đã liên kết: <strong>${walletAddress.substring(0, 10)}${walletAddress.length > 10 ? '...' : ''}</strong>
+                    </p>
+                    
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <i class="fas fa-key"></i>
+                        <input type="text" id="walletAddressInput" placeholder="Nhập địa chỉ ví nhận tiền" style="padding: 10px 10px 10px 45px; width: 100%;" />
+                    </div>
+                    
+                    <button class="login-btn" id="linkWalletBtn" style="padding: 10px; font-size: 1em; background-color: var(--cash);">
+                        LIÊN KẾT ĐỊA CHỈ VÍ
+                    </button>
+                </div>
+                
+                <div class="feature-item logout-btn-style" onclick="handleLogout()" style="margin-top: 20px;">
+                    <i class="fas fa-sign-out-alt" style="color: #121212;"></i>
+                    <p style="color: #121212;">ĐĂNG XUẤT TÀI KHOẢN</p>
+                </div>
+            </div>
+        `;
+        // Gán sự kiện cho nút Liên kết tài khoản
+        $('#linkAccountBtn').addEventListener('click', handleLinkAccount);
+        // Gán sự kiện cho nút Liên kết Ví
+        $('#linkWalletBtn').addEventListener('click', handleLinkWallet);
+    }
+
+    // HÀM XỬ LÝ LIÊN KẾT TÀI KHOẢN (Giữ nguyên)
+    function handleLinkAccount() {
+        const input = $('#linkedAccountInput');
+        const accountName = input.value.trim();
+
+        if (accountName.length < 3) {
+            playSound('error');
+            showModalNotification('Lỗi', 'Tên tài khoản không hợp lệ. Vui lòng nhập ít nhất 3 ký tự.', 'error');
+            return;
+        }
+
+        localStorage.setItem(LS.linkedAccount, accountName);
+        renderProfileView(); 
+        playSound('success');
+        showModalNotification('Thành công!', `Đã liên kết thành công với tài khoản: ${accountName}.`, 'success');
+    }
+    
+    // HÀM XỬ LÝ LIÊN KẾT ĐỊA CHỈ VÍ MỚI (Giữ nguyên)
+    function handleLinkWallet() {
+        const input = $('#walletAddressInput');
+        const address = input.value.trim();
+
+        if (address.length < 10) {
+            playSound('error');
+            showModalNotification('Lỗi', 'Địa chỉ ví không hợp lệ. Vui lòng nhập địa chỉ đầy đủ.', 'error');
+            return;
+        }
+
+        localStorage.setItem(LS.walletAddress, address);
+        renderProfileView(); 
+        playSound('success');
+        showModalNotification('Thành công!', `Đã liên kết thành công địa chỉ ví nhận tiền.`, 'success');
+    }
+
+
+    // HÀM RENDER SETTINGS VIEW (Giữ nguyên)
+    function renderSettingsView() {
+        const isSoundOn = localStorage.getItem(LS.isSoundOn) === 'true';
+        const isNotifyOn = localStorage.getItem(LS.isNotifyOn) === 'true';
+        const currentTheme = localStorage.getItem(LS.theme);
+
+        appContent.innerHTML = `
+            <div class="welcome-card">
+                <h3>Cài đặt Ứng dụng</h3>
+                <p>Điều chỉnh giao diện, âm thanh và thông báo.</p>
+            </div>
+            <div class="feature-list">
+                <h4 style="color: var(--accent);">Tùy chỉnh Chung</h4>
+                <div class="feature-item" onclick="toggleSetting('isSoundOn')">
+                    <i class="fas fa-volume-${isSoundOn ? 'up' : 'mute'}" style="color: ${isSoundOn ? 'var(--success)' : 'var(--text-secondary)'};"></i>
+                    <p>${isSoundOn ? 'Tắt Âm thanh Ứng dụng' : 'Bật Âm thanh Ứng dụng'}</p>
+                </div>
+                <div class="feature-item" onclick="toggleSetting('isNotifyOn')">
+                    <i class="fas fa-bell-${isNotifyOn ? 'on' : 'slash'}" style="color: ${isNotifyOn ? 'var(--success)' : 'var(--text-secondary)'};"></i>
+                    <p>${isNotifyOn ? 'Tắt Thông báo Đẩy' : 'Bật Thông báo Đẩy'}</p>
+                </div>
+                
+                <h4 style="color: var(--info);">Giao diện</h4>
+                <div class="feature-item" onclick="toggleTheme()">
+                    <i class="fas fa-moon" style="color: var(--brand);"></i>
+                    <p>Chủ đề: ${currentTheme === 'dark' ? '**Chế độ Tối (Dark)**' : '**Chế độ Sáng (Light)**'}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    // LOGIC CÀI ĐẶT MỚI (Cập nhật âm thanh)
+    function toggleSetting(key) {
+        const currentValue = localStorage.getItem(key) === 'true';
+        const newValue = !currentValue;
+        localStorage.setItem(key, newValue ? 'true' : 'false');
+        
+        let message = '';
+        if (key === 'isSoundOn') {
+             message = newValue ? 'Âm thanh đã được bật.' : 'Âm thanh đã được tắt.';
+        } else if (key === 'isNotifyOn') {
+             message = newValue ? 'Thông báo Đẩy đã được bật.' : 'Thông báo Đẩy đã được tắt.';
+        }
+        
+        playSound('nav');
+        showModalNotification('Cài đặt', message, 'info');
+        renderSettingsView();
+    }
+    
+    function toggleTheme() {
+        const currentTheme = localStorage.getItem(LS.theme);
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem(LS.theme, newTheme);
+        
+        playSound('nav');
+        showModalNotification('Cài đặt', `Đã chuyển sang Chủ đề ${newTheme === 'dark' ? 'Tối' : 'Sáng'}. (Chủ đề thực tế cần CSS phức tạp hơn).`, 'info');
+        renderSettingsView();
+    }
+
+
+    function renderCoinMiningView() {
+        const currentCoins = localStorage.getItem(LS.totalCoins) || 0;
+        const isBoostActive = checkBoostStatus() > 0;
+        const multiplier = isBoostActive ? 2 : 1;
+        
+        appContent.innerHTML = `
+            <div class="coin-mining-card">
+                <h3>💰 Máy Đào Xu VIP 🐸</h3>
+                
+                ${isBoostActive ? 
+                    `<p style="color: var(--boost); font-weight: 700; margin-bottom: 10px;">
+                        <i class="fas fa-bolt"></i> TĂNG TỐC 2X ĐANG HOẠT ĐỘNG!
+                    </p>` : ''
+                }
+                
+                <div class="coin-image">
+                    <i class="fas fa-frog" style="color: var(--frog);"></i>
+                </div>
+                
+                <div class="coin-counter" style="color: ${isBoostActive ? 'var(--boost)' : 'var(--success)'};">
+                    <span id="currentCoinCount">${parseInt(currentCoins).toLocaleString('vi-VN')}</span>
+                    <i class="fas fa-coins" style="color: var(--brand);"></i>
+                </div>
+                <p class="mining-rate">
+                    Tỷ lệ: +${150 * multiplier} Xu mỗi lần đào (Giới hạn: 1 lần/phút)
+                </p>
+
+                <button id="mineNowBtn" class="mine-btn">ĐÀO NGAY!</button>
+                
+                <div class="mining-rate" id="mineStatus">Sẵn sàng.</div>
+            </div>
+        `;
+
+        // Gắn sự kiện cho nút ĐÀO NGAY
+        $('#mineNowBtn').addEventListener('click', mineCoins);
+    }
+    
+    let isMiningCooldown = false;
+    const BASE_COIN_REWARD = 150;
+    const COOLDOWN_TIME = 60000; // 60 giây
+
+    function mineCoins() {
+        if (isMiningCooldown) {
+            playSound('error');
+            showModalNotification('Vui lòng chờ!', 'Bạn phải đợi đủ 60 giây giữa các lần đào. Hãy thử lại sau!', 'warning');
+            return;
+        }
+
+        const isBoostActive = checkBoostStatus() > 0;
+        const multiplier = isBoostActive ? 2 : 1;
+        const COIN_REWARD = BASE_COIN_REWARD * multiplier;
+
+        // Bắt đầu Cooldown
+        isMiningCooldown = true;
+        const mineBtn = $('#mineNowBtn');
+        const coinCountElement = $('#currentCoinCount');
+        const mineStatus = $('#mineStatus');
+        // Cập nhật trạng thái và vô hiệu hóa nút
+        mineBtn.disabled = true;
+        mineBtn.textContent = 'Đang Đào...';
+        mineStatus.textContent = 'Máy đang hoạt động, chờ 60 giây...';
+        
+        // Cộng xu
+        let currentCoins = parseInt(localStorage.getItem(LS.totalCoins)) || 0;
+        currentCoins += COIN_REWARD;
+        localStorage.setItem(LS.totalCoins, currentCoins);
+
+        // Cập nhật giao diện
+        if (coinCountElement) {
+            coinCountElement.textContent = currentCoins.toLocaleString('vi-VN');
+        }
+        // Cập nhật lại Header và Dashboard/Mining view
+        renderHeader(); 
+        if ($('.coin-mining-card')) {
+             renderCoinMiningView(); // Render lại view Mining để hiển thị thưởng mới
+        }
+        if ($('.status-grid')) {
+             renderDashboardView();
+        }
+
+        // Thông báo thành công với hiệu ứng tiền rơi
+        playSound('success');
+        showModalNotification(
+            '🎁 Nhận Xu Thành Công!', 
+            `Chúc mừng! Bạn vừa đào được thêm +${COIN_REWARD} Xu VIP${isBoostActive ? ' (2X Boost)' : ''}. Tổng số Xu hiện tại: ${currentCoins.toLocaleString('vi-VN')}.`, 
+            'success', 
+            true // Kích hoạt hiệu ứng tiền rơi
+        );
+        // Bật lại nút sau Cooldown
+        setTimeout(() => {
+            isMiningCooldown = false;
+            mineBtn.disabled = false;
+            mineBtn.textContent = 'ĐÀO NGAY!';
+            mineStatus.textContent = 'Sẵn sàng.';
+        }, COOLDOWN_TIME);
+    }
+    
+    // --- HÀM RENDER VÀ LOGIC ĐỔI XU ---
+    function renderRedeemView() {
+        const currentCoins = localStorage.getItem(LS.totalCoins) || 0;
+        const currentCash = localStorage.getItem(LS.totalCash) || 0;
+        
+        appContent.innerHTML = `
+            <div class="coin-mining-card" style="background: linear-gradient(135deg, #4dabf7, #1c1f24);">
+                <h3>💸 Đổi Xu Sang Tiền Mặt 💳</h3>
+                <p class="mining-rate" style="margin-bottom: 20px; font-weight: 600; color: var(--brand);">
+                    Tỷ giá: 5,000 Xu = 0.1 USD
+                </p>
+                
+                <div style="display: flex; justify-content: space-around; width: 100%; margin-bottom: 20px;">
+                    <div class="coin-counter" style="font-size: 1.5em; color: var(--info); font-weight: 700;">
+                        <span>${parseInt(currentCoins).toLocaleString('vi-VN')}</span>
+                        <i class="fas fa-coins" style="font-size: 0.8em; color: var(--brand);"></i>
+                        <p style="font-size: 0.6em; color: var(--text-secondary); margin-top: 5px;">Xu hiện có</p>
+                    </div>
+                    <div class="coin-counter" style="font-size: 1.5em; color: var(--cash); font-weight: 700;">
+                        <span>${parseFloat(currentCash).toFixed(2)}</span>
+                        <i class="fas fa-money-bill-wave" style="font-size: 0.8em;"></i>
+                        <p style="font-size: 0.6em; color: var(--text-secondary); margin-top: 5px;">Tiền mặt (USD)</p>
+                    </div>
+                </div>
+
+                <div class="login-form" style="max-width: 350px; margin: 30px auto 20px;">
+                    <div class="input-group">
+                        <i class="fas fa-money-check-alt"></i>
+                        <input type="number" id="redeemAmountInput" placeholder="Nhập số lượng Xu muốn đổi (tối thiểu 5000)" min="5000" step="5000" />
+                    </div>
+                    <button id="redeemBtn" class="login-btn" style="background-color: var(--info);">
+                        THỰC HIỆN ĐỔI XU
+                    </button>
+                </div>
+                <div class="mining-rate" id="redeemStatus">Sẵn sàng thực hiện giao dịch.</div>
+            </div>
+        `;
+
+        // Gắn sự kiện cho nút ĐỔI XU
+        $('#redeemBtn').addEventListener('click', handleRedeem);
+    }
+
+    function handleRedeem() {
+        const inputElement = $('#redeemAmountInput');
+        const redeemAmount = parseInt(inputElement.value);
+        const currentCoins = parseInt(localStorage.getItem(LS.totalCoins)) || 0;
+        const currentCash = parseFloat(localStorage.getItem(LS.totalCash)) || 0;
+        const redeemStatus = $('#redeemStatus');
+
+        // 1. Kiểm tra giá trị hợp lệ
+        if (isNaN(redeemAmount) || redeemAmount < 5000) {
+            playSound('error');
+            showModalNotification('Lỗi', 'Vui lòng nhập số Xu muốn đổi. Số tối thiểu là 5,000 Xu.', 'error');
+            return;
+        }
+        
+        // 2. Kiểm tra bội số của 5000
+        if (redeemAmount % 5000 !== 0) {
+            playSound('error');
+            showModalNotification('Lỗi', 'Số Xu phải là bội số của 5,000 để thực hiện giao dịch.', 'error');
+            return;
+        }
+
+        // 3. Kiểm tra số dư
+        if (redeemAmount > currentCoins) {
+            playSound('error');
+            showModalNotification('Lỗi', `Số dư Xu không đủ. Bạn chỉ có ${currentCoins.toLocaleString('vi-VN')} Xu.`, 'error');
+            return;
+        }
+
+        // 4. Thực hiện đổi Xu
+        const cashReceived = (redeemAmount / 5000) * 0.1;
+        
+        // Cập nhật số dư Xu và Tiền
+        const newCoins = currentCoins - redeemAmount;
+        const newCash = currentCash + cashReceived;
+        
+        localStorage.setItem(LS.totalCoins, newCoins);
+        localStorage.setItem(LS.totalCash, newCash); 
+
+        // Cập nhật giao diện
+        renderHeader(); 
+        if ($('.coin-counter')) {
+             renderRedeemView(); 
+        }
+
+        // Thông báo thành công
+        playSound('success');
+        showModalNotification(
+            '🎉 Đổi Xu Thành Công!', 
+            `Bạn đã đổi thành công ${redeemAmount.toLocaleString('vi-VN')} Xu lấy ${cashReceived.toFixed(2)} USD. Tổng tiền mặt hiện có: ${newCash.toFixed(2)} USD.`, 
+            'success', 
+            false 
+        );
+        
+        // Đặt lại input và trạng thái
+        inputElement.value = '';
+        redeemStatus.textContent = `Đổi thành công ${redeemAmount.toLocaleString('vi-VN')} Xu. Số dư còn lại: ${newCoins.toLocaleString('vi-VN')} Xu.`;
+    }
+
+    // --- APP LOGIC ---
+
+    // Hàm chuyển đổi View
+    function switchView(viewName) {
+        // Cập nhật trạng thái active của Nav
+        $$('.nav-item').forEach(item => {
+            // Chỉ phát âm thanh điều hướng khi bấm vào nav item
+            if (item.getAttribute('data-view') === viewName) {
+                if (!item.classList.contains('active')) {
+                     playSound('nav');
+                }
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+        
+        // Phát âm thanh khi bấm vào icon Header (nếu không phải là nav item)
+        if (viewName === 'settings' && !$('.nav-item[data-view="settings"]')) {
+             playSound('nav');
+        }
+        
+        // Render nội dung tương ứng
+        switch (viewName) {
+            case 'dashboard':
+                renderDashboardView();
+                break;
+            case 'features':
+                renderFeaturesView();
+                break;
+            case 'mining':
+                renderCoinMiningView();
+                break;
+            case 'redeem': 
+                renderRedeemView();
+                break;
+            case 'settings':
+                renderSettingsView();
+                break;
+            case 'profile':
+                renderProfileView();
+                break;
+            default:
+                renderDashboardView();
+                break;
+        }
+    }
+
+    // Xử lý sự kiện Nav Click
+    appNav.addEventListener('click', (e) => {
+        let target = e.target.closest('.nav-item');
+        if (target) {
+            switchView(target.getAttribute('data-view'));
+        }
+    });
+    // Hàm khởi tạo ứng dụng chính
+    function initApp() {
+        // Bắt đầu timer nếu Boost đang chạy khi tải lại trang
+        if (checkBoostStatus() > 0 && !boostTimer) {
+             boostTimer = setInterval(updateBoostDisplay, 1000);
+        }
+        renderHeader();
+        switchView('dashboard'); // Mặc định hiển thị Dashboard
+    }
+
+    // --- LOGIN LOGIC (Cập nhật âm thanh) ---
+    
+    function handleLogin() {
+        const username = $('#usernameInput').value.trim();
+        const password = $('#passwordInput').value.trim();
+        const referralCode = referralCodeInput.value.trim();
+        const tiktokId = tiktokIdInput.value.trim();
+        const validReferralCode = 'DACDTTH07';
+        const validTiktokId = 'caddtth2102';
+        
+        if (username.length === 0 || password.length === 0 || referralCode.length === 0 || tiktokId.length === 0) {
+            playSound('error');
+            showModalNotification('Lỗi Đăng nhập', 'Vui lòng nhập đầy đủ Tên đăng nhập, Mật khẩu, Mã giới thiệu và ID TikTok.', 'error');
+            return;
+        }
+
+        if (referralCode !== validReferralCode) {
+            playSound('error');
+            showModalNotification('Lỗi Xác thực', `Mã giới thiệu không hợp lệ. Vui lòng kiểm tra lại.`, 'error');
+            return;
+        }
+
+        if (tiktokId !== validTiktokId) {
+            playSound('error');
+            showModalNotification('Lỗi Xác thực', `ID TikTok không hợp lệ. Vui lòng nhập ID đã đăng ký.`, 'error');
+            return;
+        }
+
+        localStorage.setItem(LS.isLoggedIn, 'true');
+        playSound('success');
+        showModalNotification('🎉 Đăng nhập Thành công!', 'Chào mừng trở lại! Bạn đã truy cập tài khoản VIP GoGo Lite Premium.', 'success');
+        checkLoginStatus();
+    }
+    
+    function handleLogout() {
+        localStorage.removeItem(LS.isLoggedIn);
+        playSound('nav');
+        showModalNotification('Đăng xuất', 'Bạn đã đăng xuất khỏi hệ thống. Hẹn gặp lại!', 'info');
+        checkLoginStatus();
+    }
+
+    // Kiểm tra trạng thái đăng nhập
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem(LS.isLoggedIn) === 'true';
+        if (isLoggedIn) {
+            loginContainer.style.display = 'none';
+            appContainer.style.display = 'flex';
+            initApp();
+        } else {
+            loginContainer.style.display = 'flex';
+            appContainer.style.display = 'none';
+        }
+    }
+    
+    // --- INITIALIZATION ---
+    
+    loginBtn.addEventListener('click', handleLogin);
+    // Check login status on page load
+    document.addEventListener('DOMContentLoaded', checkLoginStatus);
+    // --- PWA INSTALLATION LOGIC (Tùy chọn) ---
+    
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js') 
+                .then((registration) => {})
+                .catch((registrationError) => {});
+        });
+    }
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+    });
+    window.addEventListener('appinstalled', (evt) => {
+        showModalNotification('Cài đặt', 'Ứng dụng GoGo Lite Premium đã được cài đặt thành công!', 'success');
+    });
+</script>
+</body>
+</html>
